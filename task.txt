@@ -1,0 +1,77 @@
+OPINION-METER Project - Todo List
+=================================
+
+## Completed
+- [x] Deploy to GitHub
+- [x] Create backend directory structure
+- [x] Write backend/preprocess.py - text cleaning (NLTK)
+- [x] Write backend/predict.py - ML inference
+- [x] Write backend/main.py - FastAPI (/search, /analyze, /health)
+- [x] Write backend/requirements.txt
+- [x] Write train_model.py - offline training script
+- [x] Run train_model.py - ML model trained (89.11% accuracy)
+- [x] Create frontend with Vite + React
+- [x] Write SearchBar.jsx
+- [x] Write ResultsChart.jsx (Recharts pie chart)
+- [x] Write ReviewCard.jsx
+- [x] Write App.jsx - state + API calls
+- [x] Configure frontend/.env
+- [x] Create .gitignore
+- [x] Install Python dependencies
+- [x] Install frontend dependencies
+- [x] Backend tested and working
+
+## Pending
+- [ ] Write README.md with setup instructions
+
+## Project Structure
+```
+opinion-meter/
+├── backend/
+│   ├── main.py              # FastAPI app
+│   ├── predict.py           # ML inference
+│   ├── preprocess.py        # Text cleaning
+│   ├── models/             # model.pkl, vectorizer.pkl, label_encoder.pkl
+│   └── requirements.txt
+├── frontend/
+│   ├── src/
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── components/
+│   │       ├── SearchBar.jsx
+│   │       ├── ResultsChart.jsx
+│   │       └── ReviewCard.jsx
+│   ├── index.html
+│   ├── package.json
+│   ├── vite.config.js
+│   └── .env
+├── dataset/fine-foods/Reviews.csv
+├── train_model.py
+├── design.md
+├── task.txt
+└── .gitignore
+```
+
+## Running Locally
+
+### Backend (currently running on port 8000)
+```bash
+cd backend
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
+
+### Frontend
+```bash
+cd frontend
+npm run dev
+```
+
+## API Endpoints
+- GET /health - Health check
+- GET /search?q=keyword&limit=50 - Search reviews
+- POST /analyze - Analyze sentiment
+
+## Notes
+- ML Accuracy: 89.11%
+- Chart library: Recharts
+- Dataset: 568,454 Amazon food reviews (200k sample used for training)

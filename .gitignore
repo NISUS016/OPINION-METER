@@ -1,0 +1,10 @@
+dataset/
+backend/models/
+backend/__pycache__/
+*.pkl
+*.csv
+.env
+node_modules/
+dist/
+__pycache__/
+*.pyc
