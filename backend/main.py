@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Query, HTTPException
+from fastapi import FastAPI, Query, HTTPException, Path as PathParam
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 import pandas as pd
@@ -27,6 +27,7 @@ DATASET_PATH = os.path.join(
 
 # Cache for dataset to avoid reloading on every request
 _dataset_cache = None
+_products_cache = None
 
 
 def get_dataset() -> pd.DataFrame:
@@ -45,6 +46,20 @@ def get_dataset() -> pd.DataFrame:
         except pd.errors.ParserError as e:
             raise HTTPException(status_code=503, detail=f"Dataset file is corrupted: {str(e)}")
     return _dataset_cache
+
+
+def get_products() -> pd.DataFrame:
+    """Get unique products with their details."""
+    global _products_cache
+    if _products_cache is None:
+        df = get_dataset()
+        _products_cache = df.groupby('ProductId').agg({
+            'Summary': 'first',
+            'Text': 'count',
+            'Score': 'mean'
+        }).reset_index()
+        _products_cache.columns = ['product_id', 'summary', 'review_count', 'avg_score']
+    return _products_cache
 
 
 class AnalyzeRequest(BaseModel):
@@ -79,6 +94,78 @@ def search(
         for _, row in results.iterrows()
     ]
     return {"query": q, "count": len(reviews), "reviews": reviews}
+
+
+@app.get("/products")
+def search_products(
+    q: str = Query(..., min_length=1, max_length=100, description="Search products by name"),
+    limit: int = Query(20, ge=1, le=100, description="Maximum number of results")
+):
+    """Search for products by their review summary/name."""
+    q = q.strip()
+    
+    try:
+        products = get_products()
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to load products: {str(e)}")
+    
+    # Search in product summary
+    escaped_q = str(q).replace("\\", "\\\\").replace(".", "\\.")
+    results = products[products["summary"].str.contains(escaped_q, case=False, na=False, regex=True)].head(limit)
+    
+    return {
+        "query": q,
+        "count": len(results),
+        "products": [
+            {
+                "product_id": row["product_id"],
+                "summary": str(row["summary"]),
+                "review_count": int(row["review_count"]),
+                "avg_score": round(float(row["avg_score"]), 2)
+            }
+            for _, row in results.iterrows()
+        ]
+    }
+
+
+@app.get("/products/{product_id}")
+def get_product_reviews(
+    product_id: str = PathParam(..., description="Product ID"),
+    limit: int = Query(100, ge=1, le=500, description="Maximum number of reviews")
+):
+    """Get all reviews for a specific product by ProductId."""
+    try:
+        df = get_dataset()
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to load dataset: {str(e)}")
+    
+    results = df[df["ProductId"] == product_id].head(limit)
+    
+    if len(results) == 0:
+        raise HTTPException(status_code=404, detail=f"Product not found: {product_id}")
+    
+    # Get product info
+    product_summary = results.iloc[0]["Summary"]
+    
+    reviews = [
+        {
+            "text": str(row["Text"]), 
+            "score": int(row["Score"]),
+            "summary": str(row["Summary"])
+        }
+        for _, row in results.iterrows()
+    ]
+    
+    return {
+        "product_id": product_id,
+        "product_summary": str(product_summary),
+        "count": len(reviews),
+        "reviews": reviews
+    }
 
 
 @app.post("/analyze")
