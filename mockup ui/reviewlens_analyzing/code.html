@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;family=Space+Grotesk:wght@400;500;700&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed-variant": "#92002a",
+              "inverse-on-surface": "#2b303c",
+              "inverse-primary": "#006b5f",
+              "surface-bright": "#343946",
+              "on-secondary-fixed": "#131b2c",
+              "surface": "#0e131e",
+              "surface-variant": "#303541",
+              "on-secondary-fixed-variant": "#3f4759",
+              "on-primary-container": "#00423b",
+              "on-primary-fixed-variant": "#005048",
+              "secondary-fixed": "#dbe2f9",
+              "on-secondary-container": "#adb5ca",
+              "tertiary-fixed": "#ffdadb",
+              "secondary-fixed-dim": "#bfc6dc",
+              "on-tertiary-container": "#7a0022",
+              "on-background": "#dee2f2",
+              "tertiary-fixed-dim": "#ffb2b7",
+              "on-primary-fixed": "#00201c",
+              "primary": "#4fdbc8",
+              "primary-fixed-dim": "#4fdbc8",
+              "surface-dim": "#0e131e",
+              "outline-variant": "#3c4947",
+              "surface-container-high": "#252a36",
+              "inverse-surface": "#dee2f2",
+              "tertiary": "#ffb2b7",
+              "surface-container-lowest": "#090e19",
+              "on-surface-variant": "#bbcac6",
+              "on-tertiary": "#67001b",
+              "on-error-container": "#ffdad6",
+              "tertiary-container": "#ff7b88",
+              "on-surface": "#dee2f2",
+              "surface-container-low": "#171b27",
+              "surface-tint": "#4fdbc8",
+              "surface-container-highest": "#303541",
+              "on-error": "#690005",
+              "error-container": "#93000a",
+              "background": "#0e131e",
+              "on-primary": "#003731",
+              "outline": "#859490",
+              "primary-container": "#14b8a6",
+              "surface-container": "#1b1f2b",
+              "secondary-container": "#3f4759",
+              "on-secondary": "#283041",
+              "secondary": "#bfc6dc",
+              "error": "#ffb4ab",
+              "primary-fixed": "#71f8e4",
+              "on-tertiary-fixed": "#40000d"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"],
+              "mono": ["JetBrains Mono"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .loading-ring {
+            animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(1.1); }
+        }
+        .volumetric-glow {
+            background: radial-gradient(circle at center, rgba(20, 184, 166, 0.12) 0%, rgba(10, 15, 26, 0) 70%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30 antialiased overflow-hidden">
+<!-- TopNavBar Shell (Suppressing for Task-Focused Analysis Screen as per Mandate) -->
+<main class="relative min-h-screen w-full flex flex-col items-center justify-center bg-surface-container-lowest">
+<!-- Atmospheric Background Element -->
+<div class="absolute inset-0 volumetric-glow pointer-events-none"></div>
+<!-- Central Analysis Container -->
+<div class="relative z-10 flex flex-col items-center space-y-8">
+<!-- Animated Concentric Rings -->
+<div class="relative w-32 h-32 flex items-center justify-center">
+<!-- Inner Ring -->
+<div class="absolute w-16 h-16 rounded-full border-2 border-primary-container loading-ring shadow-[0_0_15px_rgba(20,184,166,0.2)]"></div>
+<!-- Outer Ring -->
+<div class="absolute w-20 h-20 rounded-full border-2 border-primary-container/40 loading-ring" style="animation-delay: 0.5s;"></div>
+<!-- Central Icon -->
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="query_stats">query_stats</span>
+</div>
+<!-- Status Header -->
+<div class="text-center space-y-2">
+<h2 class="text-[15px] font-medium text-[#F8FAFC] tracking-wide animate-pulse">
+                    Scraping product reviews...
+                </h2>
+<div class="h-1 w-48 bg-surface-container rounded-full overflow-hidden mx-auto">
+<div class="h-full bg-primary w-2/3 rounded-full shadow-[0_0_8px_rgba(79,219,200,0.5)]"></div>
+</div>
+</div>
+<!-- Technical Progress Log -->
+<div class="w-full max-w-sm px-6">
+<div class="bg-surface-container-low rounded-xl p-4 border border-outline-variant/10 shadow-2xl backdrop-blur-md">
+<div class="font-mono text-[13px] text-[#8B9AAD] space-y-2">
+<div class="flex items-center space-x-2 opacity-60">
+<span class="text-primary-container">[OK]</span>
+<span>Initializing crawler session...</span>
+</div>
+<div class="flex items-center space-x-2 opacity-80">
+<span class="text-primary-container">[OK]</span>
+<span>Targeting Amazon Global endpoints</span>
+</div>
+<div class="flex items-center space-x-2">
+<span class="text-primary-container">[OK]</span>
+<span>420 reviews found</span>
+</div>
+<div class="flex items-center space-x-2 animate-pulse">
+<span class="text-primary-container">[OK]</span>
+<span class="text-on-surface">Running NLP model...</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Metadata -->
+<div class="flex items-center space-x-4">
+<div class="flex flex-col items-center">
+<span class="font-label text-[10px] uppercase tracking-widest text-on-secondary-container">Entity</span>
+<span class="font-headline text-xs font-bold text-on-surface">ReviewLens Pro v2.4</span>
+</div>
+<div class="h-8 w-px bg-outline-variant/20"></div>
+<div class="flex flex-col items-center">
+<span class="font-label text-[10px] uppercase tracking-widest text-on-secondary-container">Region</span>
+<span class="font-headline text-xs font-bold text-on-surface">US-EAST-1</span>
+</div>
+</div>
+</div>
+<!-- Decorative Grid Overlay -->
+<div class="absolute inset-0 opacity-[0.03] pointer-events-none" data-alt="Subtle teal dot grid pattern background" style="background-image: radial-gradient(#4fdcc8 0.5px, transparent 0.5px); background-size: 24px 24px;"></div>
+</main>
+<!-- Bottom Navigation (Suppressed for focused state) -->
+<!-- Floating Branding Anchor -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
+<div class="flex items-center space-x-3 bg-surface-bright/80 backdrop-blur-xl px-5 py-2.5 rounded-full border border-white/5 shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.05)_inset]">
+<div class="w-6 h-6 bg-primary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-surface text-sm" data-icon="lens" data-weight="fill">lens</span>
+</div>
+<span class="font-headline font-extrabold text-sm tracking-tight text-primary">ReviewLens</span>
+</div>
+</div>
+</body></html>

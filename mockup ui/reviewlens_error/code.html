@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Analysis Failed - ReviewLens</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed-variant": "#92002a",
+              "inverse-on-surface": "#2b303c",
+              "inverse-primary": "#006b5f",
+              "surface-bright": "#343946",
+              "on-secondary-fixed": "#131b2c",
+              "surface": "#0e131e",
+              "surface-variant": "#303541",
+              "on-secondary-fixed-variant": "#3f4759",
+              "on-primary-container": "#00423b",
+              "on-primary-fixed-variant": "#005048",
+              "secondary-fixed": "#dbe2f9",
+              "on-secondary-container": "#adb5ca",
+              "tertiary-fixed": "#ffdadb",
+              "secondary-fixed-dim": "#bfc6dc",
+              "on-tertiary-container": "#7a0022",
+              "on-background": "#dee2f2",
+              "tertiary-fixed-dim": "#ffb2b7",
+              "on-primary-fixed": "#00201c",
+              "primary": "#4fdbc8",
+              "primary-fixed-dim": "#4fdbc8",
+              "surface-dim": "#0e131e",
+              "outline-variant": "#3c4947",
+              "surface-container-high": "#252a36",
+              "inverse-surface": "#dee2f2",
+              "tertiary": "#ffb2b7",
+              "surface-container-lowest": "#090e19",
+              "on-surface-variant": "#bbcac6",
+              "on-tertiary": "#67001b",
+              "on-error-container": "#ffdad6",
+              "tertiary-container": "#ff7b88",
+              "on-surface": "#dee2f2",
+              "surface-container-low": "#171b27",
+              "surface-tint": "#4fdbc8",
+              "surface-container-highest": "#303541",
+              "on-error": "#690005",
+              "error-container": "#93000a",
+              "background": "#0e131e",
+              "on-primary": "#003731",
+              "outline": "#859490",
+              "primary-container": "#14b8a6",
+              "surface-container": "#1b1f2b",
+              "secondary-container": "#3f4759",
+              "on-secondary": "#283041",
+              "secondary": "#bfc6dc",
+              "error": "#ffb4ab",
+              "primary-fixed": "#71f8e4",
+              "on-tertiary-fixed": "#40000d"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .red-volumetric-glow {
+            background: radial-gradient(circle at center, rgba(244, 63, 94, 0.08) 0%, rgba(14, 19, 30, 0) 70%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30 min-h-screen flex flex-col">
+<!-- Header (TopNavBar Anchor) -->
+<header class="bg-[#0E131E]/80 backdrop-blur-xl docked full-width top-0 z-50 shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.05)_inset]">
+<div class="flex justify-between items-center w-full px-6 py-4 mx-auto max-w-7xl">
+<div class="text-xl font-bold tracking-tight text-[#4FDBC8] font-headline">ReviewLens</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="text-[#BBCAC6] hover:text-[#DEE2F2] transition-colors font-body text-sm" href="#">Dashboard</a>
+<a class="text-[#BBCAC6] hover:text-[#DEE2F2] transition-colors font-body text-sm" href="#">History</a>
+<a class="text-[#BBCAC6] hover:text-[#DEE2F2] transition-colors font-body text-sm" href="#">Settings</a>
+</nav>
+<div class="flex items-center space-x-4">
+<button class="p-2 text-[#BBCAC6] hover:bg-[#252A36] rounded-lg transition-all active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-[#BBCAC6] hover:bg-[#252A36] rounded-lg transition-all active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="Close up profile photo of a user" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSj69aufAztwXmt-sR07c3QqWtbL5j4kmvL7YobpSmYSVPm6ajcx-shMAJ3CDFc9F_74pav3E7Q-YAbD8epPWCysEpr_3QrUrctStpeERdE4x1L8p8eJ1UylpBRRDuBFyAlXf2ocdHCIEzuJoknChO5hepDnF0z_LfiUriLOzqLYe1n7wslbERE2l2qoMjLaRQjm28aTAPzVzOKkW1fuIarfqkckiOAk_1Ngfg6gFGeTKLejKTru5Ngfx52L3OlMe0tGx6262LmKg"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center px-6 relative overflow-hidden">
+<!-- Subtle Red Volumetric Glow behind the error card -->
+<div class="absolute inset-0 red-volumetric-glow pointer-events-none"></div>
+<div class="relative z-10 max-w-xl w-full text-center">
+<!-- Error Icon (Material Symbol equivalent of Alert Triangle) -->
+<div class="mb-8 inline-flex items-center justify-center">
+<div class="w-24 h-24 rounded-full bg-error-container/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[48px] text-[#F43F5E]" data-icon="warning" style="font-variation-settings: 'FILL' 0;">warning</span>
+</div>
+</div>
+<!-- Error Title -->
+<h1 class="text-[#F8FAFC] font-headline font-semibold text-3xl mb-4 tracking-tight">Analysis Failed</h1>
+<!-- Error Body -->
+<p class="text-[#8B9AAD] font-body text-[15px] leading-relaxed mb-10 max-w-md mx-auto">
+                We couldn't extract reviews from this URL. Please ensure it's a valid Amazon or Shopify product page.
+            </p>
+<!-- CTA Section -->
+<div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+<button class="w-full sm:w-auto px-8 py-3.5 bg-[#131B2B] text-[#F8FAFC] border border-[#232E42] rounded-xl font-body font-medium hover:bg-[#1B2538] transition-all active:scale-95 shadow-lg">
+                    Try another link
+                </button>
+<button class="w-full sm:w-auto px-8 py-3.5 text-[#ADB5CA] hover:text-[#DEE2F2] transition-colors font-body text-sm font-medium">
+                    View Documentation
+                </button>
+</div>
+<!-- Contextual Help (Bento-lite hint) -->
+<div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+<div class="bg-surface-container-low p-5 rounded-xl border border-white/[0.03]">
+<div class="flex items-center space-x-3 mb-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="check_circle">check_circle</span>
+<span class="text-[11px] font-label uppercase tracking-widest text-[#ADB5CA]">Supported Platforms</span>
+</div>
+<p class="text-[13px] text-[#BBCAC6]">Amazon Global and Shopify-hosted stores are fully supported for automated crawling.</p>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl border border-white/[0.03]">
+<div class="flex items-center space-x-3 mb-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="link">link</span>
+<span class="text-[11px] font-label uppercase tracking-widest text-[#ADB5CA]">URL Format</span>
+</div>
+<p class="text-[13px] text-[#BBCAC6]">Make sure you are linking directly to a product detail page, not a collection or search result.</p>
+</div>
+</div>
+</div>
+<!-- Decorative Background Elements -->
+<div class="absolute bottom-[-10%] right-[-5%] w-[400px] h-[400px] bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="absolute top-[20%] left-[-5%] w-[300px] h-[300px] bg-error/5 blur-[100px] rounded-full pointer-events-none"></div>
+</main>
+<!-- Footer Meta (Bottom Bar for Mobile, Hidden on Web per Rules) -->
+<footer class="md:hidden fixed bottom-0 left-0 w-full bg-[#0E131E]/90 backdrop-blur-md px-6 py-3 flex justify-around items-center z-50">
+<button class="flex flex-col items-center space-y-1 text-[#4FDBC8]">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-label">DASHBOARD</span>
+</button>
+<button class="flex flex-col items-center space-y-1 text-[#ADB5CA]">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="text-[10px] font-label">HISTORY</span>
+</button>
+<button class="flex flex-col items-center space-y-1 text-[#ADB5CA]">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-[10px] font-label">SETTINGS</span>
+</button>
+</footer>
+</body></html>

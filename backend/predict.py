@@ -5,6 +5,7 @@ try:
     import joblib
 except ImportError:
     import pickle as _pickle
+
     joblib = None
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -12,9 +13,9 @@ MODELS_DIR = os.path.join(BASE_DIR, "models")
 
 # Expected SHA256 hashes for model files (to verify integrity)
 EXPECTED_HASHES = {
-    "model.pkl": None,  # Set after training if desired
-    "vectorizer.pkl": None,
-    "label_encoder.pkl": None,
+    "model.pkl": "d659969fc2bdf89c4fd6963acd71cab272d3852cb4d5c4904d44b0eb1c33e54b",
+    "vectorizer.pkl": "0e96963b3e561de38e7376041aeebfb03d5be4c693cf76ac08cde9adc16b020a",
+    "label_encoder.pkl": "20ec85d93535e83f465c75b730f10538c821bcc3f8f446bba0b2ceddde13cbfa",
 }
 
 _model = None
@@ -26,7 +27,7 @@ def _verify_file_integrity(filepath: str) -> bool:
     """Verify file integrity using SHA256 hash."""
     if EXPECTED_HASHES.get(os.path.basename(filepath)) is None:
         return True  # Skip verification if no hash configured
-    
+
     expected_hash = EXPECTED_HASHES[os.path.basename(filepath)]
     with open(filepath, "rb") as f:
         actual_hash = hashlib.sha256(f.read()).hexdigest()
@@ -39,14 +40,14 @@ def load_models():
         model_path = os.path.join(MODELS_DIR, "model.pkl")
         vectorizer_path = os.path.join(MODELS_DIR, "vectorizer.pkl")
         label_encoder_path = os.path.join(MODELS_DIR, "label_encoder.pkl")
-        
+
         # Verify file integrity before loading
         for filepath in [model_path, vectorizer_path, label_encoder_path]:
             if not os.path.exists(filepath):
                 raise FileNotFoundError(f"Model file not found: {filepath}")
             if not _verify_file_integrity(filepath):
                 raise ValueError(f"Model file integrity check failed: {filepath}")
-        
+
         # Use joblib (safer for numpy arrays) with fallback to pickle
         if joblib is not None:
             _model = joblib.load(model_path)
@@ -55,6 +56,7 @@ def load_models():
         else:
             # Fallback to pickle with warning
             import warnings
+
             warnings.warn(
                 "joblib not available, using pickle. "
                 "This is less secure. Install joblib: pip install joblib"
