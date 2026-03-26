@@ -80,35 +80,33 @@ export default function SearchBar({ onSearch, isLoading = false }) {
 
   return (
     <div ref={containerRef} style={styles.container}>
-      <form onSubmit={handleSubmit} style={styles.form} role="search" aria-label="Product search">
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Search for a product (e.g., chocolate, coffee, snacks)"
-          style={styles.input}
-          disabled={isLoading}
-          aria-label="Search keyword"
-          aria-describedby="search-hint"
-          aria-expanded={showSuggestions}
-          aria-autocomplete="list"
-          onFocus={() => query.length >= 2 && suggestions.length > 0 && setShowSuggestions(true)}
-        />
-        <button
-          type="submit"
-          style={{
-            ...styles.button,
-            ...(isLoading ? styles.buttonDisabled : {})
-          }}
-          disabled={isLoading || !query.trim()}
-          aria-busy={isLoading}
-        >
-          {isLoading ? 'Analyzing...' : 'Analyze'}
-        </button>
-        <span id="search-hint" style={{ display: 'none' }}>
-          Enter a product name to search for reviews
-        </span>
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <div style={styles.inputWrapper}>
+          <span style={styles.searchIcon}>🔍</span>
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Search a product to analyze reviews..."
+            style={styles.input}
+            disabled={isLoading}
+            aria-label="Search keyword"
+            aria-expanded={showSuggestions}
+            aria-autocomplete="list"
+            onFocus={() => query.length >= 2 && suggestions.length > 0 && setShowSuggestions(true)}
+          />
+          <button
+            type="submit"
+            style={{
+              ...styles.button,
+              ...(isLoading ? styles.buttonDisabled : {})
+            }}
+            disabled={isLoading || !query.trim()}
+          >
+            {isLoading ? 'Analyzing...' : 'Analyze'}
+          </button>
+        </div>
       </form>
 
       {showSuggestions && suggestions.length > 0 && (
@@ -136,34 +134,56 @@ export default function SearchBar({ onSearch, isLoading = false }) {
 const styles = {
   container: {
     width: '100%',
-    maxWidth: '600px',
+    maxWidth: '640px',
     position: 'relative',
+    zIndex: 10,
   },
   form: {
-    display: 'flex',
-    gap: '10px',
     width: '100%',
   },
+  inputWrapper: {
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  searchIcon: {
+    position: 'absolute',
+    left: '20px',
+    fontSize: '18px',
+    pointerEvents: 'none',
+    opacity: 0.6,
+  },
   input: {
-    flex: 1,
-    padding: '12px 16px',
+    width: '100%',
+    height: '64px',
+    padding: '0 140px 0 56px',
     fontSize: '16px',
-    border: '2px solid #e0e0e0',
-    borderRadius: '8px',
+    fontFamily: 'var(--font-body)',
+    backgroundColor: '#131B2B',
+    border: '1px solid #232E42',
+    borderRadius: '9999px',
+    color: 'var(--on-surface)',
     outline: 'none',
+    transition: 'all 0.2s ease',
   },
   button: {
-    padding: '12px 24px',
-    fontSize: '16px',
-    backgroundColor: '#4f46e5',
-    color: 'white',
+    position: 'absolute',
+    right: '8px',
+    top: '8px',
+    bottom: '8px',
+    padding: '0 32px',
+    backgroundColor: 'var(--primary-container)',
+    color: 'var(--on-primary-container)',
+    fontFamily: 'var(--font-headline)',
+    fontWeight: '700',
+    fontSize: '14px',
     border: 'none',
-    borderRadius: '8px',
+    borderRadius: '9999px',
     cursor: 'pointer',
-    transition: 'background-color 0.2s ease',
+    transition: 'all 0.2s ease',
   },
   buttonDisabled: {
-    backgroundColor: '#9ca3af',
+    opacity: 0.6,
     cursor: 'not-allowed',
   },
   suggestionsList: {
@@ -171,24 +191,26 @@ const styles = {
     top: '100%',
     left: 0,
     right: 0,
-    backgroundColor: 'white',
-    border: '1px solid #e0e0e0',
-    borderRadius: '8px',
-    marginTop: '4px',
-    padding: 0,
+    backgroundColor: 'var(--surface-container)',
+    borderRadius: '12px',
+    marginTop: '8px',
+    padding: '8px 0',
     listStyle: 'none',
-    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+    boxShadow: '0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05) inset',
     zIndex: 100,
-    maxHeight: '300px',
+    maxHeight: '320px',
     overflowY: 'auto',
   },
   suggestionItem: {
-    padding: '12px 16px',
+    padding: '14px 20px',
     cursor: 'pointer',
-    borderBottom: '1px solid #f3f4f6',
-    transition: 'background-color 0.2s',
+    fontSize: '14px',
+    fontFamily: 'var(--font-body)',
+    color: 'var(--on-surface-variant)',
+    transition: 'background-color 0.15s ease',
   },
   suggestionItemActive: {
-    backgroundColor: '#f3f4f6',
+    backgroundColor: 'var(--surface-container-high)',
+    color: 'var(--on-surface)',
   },
 }

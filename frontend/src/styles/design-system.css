@@ -1,0 +1,194 @@
+:root {
+  /* Surface Hierarchy */
+  --surface: #0E131E;
+  --surface-container: #1B1F2B;
+  --surface-container-low: #171B27;
+  --surface-container-high: #252A36;
+  --surface-container-highest: #303541;
+  --surface-container-lowest: #090E19;
+  --surface-bright: #343946;
+
+  /* Primary */
+  --primary: #4FDBC8;
+  --primary-container: #14B8A6;
+  --on-primary: #003731;
+  --on-primary-container: #00423B;
+
+  /* Sentiment Colors */
+  --positive: #10B981;
+  --negative: #F43F5E;
+  --neutral: #64748B;
+
+  /* Text */
+  --on-surface: #DEE2F2;
+  --on-surface-variant: #BBCAC6;
+  --on-secondary-container: #ADB5CA;
+
+  /* Other */
+  --outline: #859490;
+  --outline-variant: #3C4947;
+  --error: #FFB4AB;
+
+  /* Fonts */
+  --font-headline: 'Manrope', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-label: 'Space Grotesk', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--surface);
+  color: var(--on-surface);
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+/* Utility Classes */
+.font-headline { font-family: var(--font-headline); }
+.font-body { font-family: var(--font-body); }
+.font-label { font-family: var(--font-label); }
+
+.text-primary { color: var(--primary); }
+.text-positive { color: var(--positive); }
+.text-negative { color: var(--negative); }
+.text-neutral { color: var(--neutral); }
+
+.bg-surface { background-color: var(--surface); }
+.bg-surface-container { background-color: var(--surface-container); }
+.bg-surface-container-low { background-color: var(--surface-container-low); }
+.bg-surface-container-high { background-color: var(--surface-container-high); }
+.bg-surface-container-lowest { background-color: var(--surface-container-lowest); }
+
+/* Atmospheric Glow */
+.atmospheric-glow {
+  background: radial-gradient(circle at center, rgba(20, 184, 166, 0.15) 0%, rgba(9, 14, 25, 0) 70%);
+}
+
+/* Sentiment Chips */
+.chip-positive {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--positive);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-family: var(--font-label);
+  font-weight: 500;
+}
+
+.chip-negative {
+  background-color: rgba(244, 63, 94, 0.1);
+  color: var(--negative);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-family: var(--font-label);
+  font-weight: 500;
+}
+
+.chip-neutral {
+  background-color: rgba(100, 116, 139, 0.1);
+  color: var(--neutral);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-family: var(--font-label);
+  font-weight: 500;
+}
+
+/* Button Styles */
+.btn-primary {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  font-family: var(--font-headline);
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 20px rgba(79, 219, 200, 0.3);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--on-surface-variant);
+  border: 1px solid rgba(133, 148, 144, 0.2);
+  font-family: var(--font-label);
+  padding: 12px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--surface-container-highest);
+}
+
+/* Card Styles */
+.card {
+  background-color: var(--surface-container-low);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid rgba(60, 73, 71, 0.1);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  border-color: rgba(79, 219, 200, 0.2);
+}
+
+/* Input Styles */
+.input-field {
+  background-color: var(--surface-container-lowest);
+  border: none;
+  border-bottom: 1px solid var(--outline-variant);
+  border-radius: 8px 8px 0 0;
+  padding: 16px;
+  color: var(--on-surface);
+  font-family: var(--font-body);
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.input-field:focus {
+  outline: none;
+  border-bottom: 1px solid var(--primary);
+  box-shadow: 0 2px 8px rgba(79, 219, 200, 0.15);
+}
+
+.input-field::placeholder {
+  color: rgba(187, 202, 198, 0.5);
+}
+
+/* Trending Chip */
+.trending-chip {
+  background-color: var(--surface-container-low);
+  border: 1px solid rgba(60, 73, 71, 0.1);
+  color: var(--on-surface-variant);
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-family: var(--font-label);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.trending-chip:hover {
+  background-color: var(--surface-container-high);
+  color: var(--on-surface);
+}
+
+/* Animations */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

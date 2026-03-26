@@ -65,22 +65,57 @@ export default function App() {
 
   return (
     <div style={styles.container}>
-      <header style={styles.header}>
-        <h1 style={styles.title}>OpinionMeter</h1>
-        <p style={styles.subtitle}>Discover what people really think about products</p>
-      </header>
+      {/* Volumetric Glow Background */}
+      <div style={styles.glowBackground}></div>
 
+      {/* Navigation */}
+      <nav style={styles.nav}>
+        <div style={styles.navBrand}>
+          <span style={styles.navLogo}>ReviewLens</span>
+          <span style={styles.navTagline}>Know what buyers actually think</span>
+        </div>
+      </nav>
+
+      {/* Main Content */}
       <main style={styles.main}>
+        {/* Hero Section */}
+        {!results && (
+          <div style={styles.hero}>
+            <h1 style={styles.heroTitle}>
+              The Pulse of <span style={styles.heroAccent}>Every Review.</span>
+            </h1>
+            <p style={styles.heroSubtitle}>
+              Aggregate sentiment, extract keywords, and unlock product insights with AI-driven analysis.
+            </p>
+          </div>
+        )}
+
+        {/* Search Bar */}
         <SearchBar onSearch={handleSearch} isLoading={loading} />
 
-        {loading && <p style={styles.loading}>Analyzing reviews...</p>}
-        {error && <p style={styles.error}>{error}</p>}
+        {/* Loading State */}
+        {loading && (
+          <div style={styles.loadingContainer}>
+            <div style={styles.loadingSpinner}></div>
+            <p style={styles.loadingText}>Analyzing reviews...</p>
+          </div>
+        )}
 
-        {sampleProducts.length > 0 && !results && (
+        {/* Error State */}
+        {error && (
+          <div style={styles.errorContainer}>
+            <p style={styles.errorText}>{error}</p>
+          </div>
+        )}
+
+        {/* Sample Products */}
+        {!results && !loading && sampleProducts.length > 0 && (
           <div style={styles.sampleSection}>
-            <h3 style={styles.sampleTitle}>Popular Products</h3>
+            <div style={styles.sampleHeader}>
+              <span style={styles.sampleLabel}>TRENDING</span>
+            </div>
             <div style={styles.productGrid}>
-              {sampleProducts.map((product) => (
+              {sampleProducts.slice(0, 6).map((product) => (
                 <button
                   key={product.product_id}
                   style={styles.productCard}
@@ -95,11 +130,20 @@ export default function App() {
           </div>
         )}
 
+        {/* Results Section */}
         {results && (
-          <>
-            <h2 style={styles.sectionTitle}>Results for "{results.productSummary}"</h2>
+          <div style={styles.resultsSection}>
+            <div style={styles.resultsHeader}>
+              <button 
+                style={styles.backButton}
+                onClick={() => setResults(null)}
+              >
+                ← Back to Search
+              </button>
+              <h2 style={styles.resultsTitle}>Results for "{results.productSummary}"</h2>
+            </div>
             <ResultsChart summary={results.summary} />
-            <h3 style={styles.sectionTitle}>Individual Reviews</h3>
+            <h3 style={styles.reviewsTitle}>Individual Reviews</h3>
             <div style={styles.reviewList}>
               {results.reviews.map((review, index) => (
                 <ReviewCard
@@ -108,9 +152,42 @@ export default function App() {
                 />
               ))}
             </div>
-          </>
+          </div>
+        )}
+
+        {/* Feature Cards (only on home) */}
+        {!results && !loading && (
+          <div style={styles.featuresGrid}>
+            <div style={styles.featureCard}>
+              <div style={styles.featureIcon}>📊</div>
+              <h3 style={styles.featureTitle}>Sentiment Mapping</h3>
+              <p style={styles.featureText}>
+                Instantly visualize the emotional arc of thousands of user reviews in seconds.
+              </p>
+            </div>
+            <div style={styles.featureCard}>
+              <div style={styles.featureIcon}>🎯</div>
+              <h3 style={styles.featureTitle}>Key Feature Extraction</h3>
+              <p style={styles.featureText}>
+                AI identifies exactly which features users love and where the product fails.
+              </p>
+            </div>
+            <div style={styles.featureCard}>
+              <div style={styles.featureIcon}>✨</div>
+              <h3 style={styles.featureTitle}>AI Summary</h3>
+              <p style={styles.featureText}>
+                Get a concise, bulleted report of the "Buyer's Consensus" without reading a single word.
+              </p>
+            </div>
+          </div>
         )}
       </main>
+
+      {/* Footer */}
+      <footer style={styles.footer}>
+        <span style={styles.footerText}>© 2024 ReviewLens AI</span>
+        <span style={styles.footerPowered}>Powered by GPT-4o Engine</span>
+      </footer>
     </div>
   )
 }
@@ -118,71 +195,148 @@ export default function App() {
 const styles = {
   container: {
     minHeight: '100vh',
-    backgroundColor: '#f9fafb',
-    padding: '40px 20px',
+    backgroundColor: 'var(--surface)',
+    position: 'relative',
+    overflow: 'hidden',
   },
-  header: {
-    textAlign: 'center',
-    marginBottom: '40px',
+  glowBackground: {
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '600px',
+    height: '400px',
+    background: 'radial-gradient(circle at center, rgba(20, 184, 166, 0.15) 0%, rgba(9, 14, 25, 0) 70%)',
+    pointerEvents: 'none',
+    zIndex: 0,
   },
-  title: {
-    fontSize: '36px',
-    fontWeight: 'bold',
-    color: '#4f46e5',
-    margin: '0 0 8px 0',
+  nav: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '16px 24px',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 50,
+    backgroundColor: 'rgba(14, 19, 30, 0.8)',
+    backdropFilter: 'blur(12px)',
   },
-  subtitle: {
-    fontSize: '18px',
-    color: '#6b7280',
-    margin: 0,
+  navBrand: {
+    display: 'flex',
+    alignItems: 'baseline',
+    gap: '12px',
+  },
+  navLogo: {
+    fontSize: '20px',
+    fontWeight: '700',
+    color: 'var(--primary)',
+    fontFamily: 'var(--font-headline)',
+    letterSpacing: '-0.02em',
+  },
+  navTagline: {
+    fontSize: '13px',
+    color: '#8B9AAD',
+    fontFamily: 'var(--font-label)',
+    fontWeight: '500',
   },
   main: {
-    maxWidth: '800px',
-    margin: '0 auto',
+    position: 'relative',
+    zIndex: 1,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    padding: '120px 24px 60px',
+    minHeight: '100vh',
   },
-  loading: {
+  hero: {
+    textAlign: 'center',
+    marginBottom: '40px',
+  },
+  heroTitle: {
+    fontSize: '48px',
+    fontWeight: '800',
+    fontFamily: 'var(--font-headline)',
+    color: 'var(--on-surface)',
+    marginBottom: '16px',
+    fontStyle: 'italic',
+  },
+  heroAccent: {
+    color: 'var(--primary)',
+  },
+  heroSubtitle: {
     fontSize: '18px',
-    color: '#6b7280',
-    marginTop: '20px',
+    color: 'var(--on-surface-variant)',
+    maxWidth: '500px',
+    margin: '0 auto',
+    lineHeight: '1.6',
   },
-  error: {
+  loadingContainer: {
+    marginTop: '40px',
+    textAlign: 'center',
+  },
+  loadingSpinner: {
+    width: '40px',
+    height: '40px',
+    border: '3px solid var(--surface-container-high)',
+    borderTopColor: 'var(--primary)',
+    borderRadius: '50%',
+    animation: 'spin 1s linear infinite',
+    margin: '0 auto 16px',
+  },
+  loadingText: {
     fontSize: '16px',
-    color: '#ef4444',
-    marginTop: '20px',
+    color: 'var(--on-surface-variant)',
+    fontFamily: 'var(--font-body)',
+  },
+  errorContainer: {
+    marginTop: '40px',
+    padding: '16px 24px',
+    backgroundColor: 'rgba(244, 63, 94, 0.1)',
+    borderRadius: '12px',
+  },
+  errorText: {
+    fontSize: '14px',
+    color: 'var(--negative)',
   },
   sampleSection: {
     width: '100%',
-    marginTop: '40px',
+    maxWidth: '800px',
+    marginTop: '48px',
   },
-  sampleTitle: {
-    fontSize: '20px',
-    color: '#1f2937',
+  sampleHeader: {
     marginBottom: '16px',
+  },
+  sampleLabel: {
+    fontSize: '11px',
+    fontFamily: 'var(--font-label)',
+    letterSpacing: '0.15em',
+    color: 'var(--on-surface-variant)',
+    textTransform: 'uppercase',
   },
   productGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
     gap: '12px',
     width: '100%',
   },
   productCard: {
-    padding: '16px',
-    backgroundColor: 'white',
-    border: '1px solid #e5e7eb',
-    borderRadius: '8px',
+    padding: '16px 20px',
+    backgroundColor: 'var(--surface-container-low)',
+    border: '1px solid rgba(60, 73, 71, 0.1)',
+    borderRadius: '12px',
     cursor: 'pointer',
     textAlign: 'left',
-    transition: 'all 0.2s',
+    transition: 'all 0.2s ease',
     display: 'flex',
     flexDirection: 'column',
-    gap: '4px',
+    gap: '6px',
   },
   productName: {
     fontSize: '14px',
-    color: '#1f2937',
+    color: 'var(--on-surface)',
+    fontFamily: 'var(--font-body)',
     fontWeight: '500',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -190,16 +344,96 @@ const styles = {
   },
   productMeta: {
     fontSize: '12px',
-    color: '#6b7280',
+    color: 'var(--on-surface-variant)',
+    fontFamily: 'var(--font-label)',
   },
-  sectionTitle: {
-    alignSelf: 'flex-start',
-    marginTop: '30px',
+  resultsSection: {
+    width: '100%',
+    maxWidth: '800px',
+    marginTop: '20px',
+  },
+  resultsHeader: {
+    marginBottom: '24px',
+  },
+  backButton: {
+    background: 'none',
+    border: 'none',
+    color: 'var(--primary)',
+    fontSize: '14px',
+    fontFamily: 'var(--font-label)',
+    cursor: 'pointer',
+    marginBottom: '12px',
+    padding: 0,
+  },
+  resultsTitle: {
+    fontSize: '24px',
+    fontWeight: '700',
+    fontFamily: 'var(--font-headline)',
+    color: 'var(--on-surface)',
+  },
+  reviewsTitle: {
+    fontSize: '18px',
+    fontWeight: '600',
+    fontFamily: 'var(--font-headline)',
+    color: 'var(--on-surface)',
+    marginTop: '32px',
     marginBottom: '16px',
-    fontSize: '20px',
-    color: '#1f2937',
   },
   reviewList: {
     width: '100%',
+  },
+  featuresGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+    gap: '24px',
+    width: '100%',
+    maxWidth: '900px',
+    marginTop: '80px',
+  },
+  featureCard: {
+    padding: '32px',
+    backgroundColor: 'var(--surface-container-low)',
+    borderRadius: '12px',
+    border: '1px solid rgba(60, 73, 71, 0.05)',
+    transition: 'all 0.2s ease',
+  },
+  featureIcon: {
+    fontSize: '32px',
+    marginBottom: '16px',
+  },
+  featureTitle: {
+    fontSize: '18px',
+    fontWeight: '700',
+    fontFamily: 'var(--font-headline)',
+    color: 'var(--on-surface)',
+    marginBottom: '8px',
+  },
+  featureText: {
+    fontSize: '14px',
+    color: 'var(--on-surface-variant)',
+    lineHeight: '1.6',
+  },
+  footer: {
+    position: 'relative',
+    zIndex: 1,
+    width: '100%',
+    padding: '24px 48px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderTop: '1px solid rgba(60, 73, 71, 0.1)',
+    marginTop: 'auto',
+  },
+  footerText: {
+    fontSize: '14px',
+    fontFamily: 'var(--font-label)',
+    color: 'var(--on-surface-variant)',
+  },
+  footerPowered: {
+    fontSize: '12px',
+    fontFamily: 'var(--font-label)',
+    letterSpacing: '0.1em',
+    color: '#ADB5CA',
+    textTransform: 'uppercase',
   },
 }

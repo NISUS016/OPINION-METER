@@ -1,11 +1,25 @@
-const COLORS = {
-  positive: { bg: '#dcfce7', text: '#166534' },
-  neutral: { bg: '#fef9c3', text: '#854d0e' },
-  negative: { bg: '#fee2e2', text: '#991b1b' },
-}
-
 export default function ReviewCard({ review }) {
-  const colorScheme = COLORS[review.label] || COLORS.neutral
+  const getSentimentStyle = (label) => {
+    switch (label) {
+      case 'positive':
+        return {
+          bg: 'rgba(16, 185, 129, 0.1)',
+          color: 'var(--positive)',
+        }
+      case 'negative':
+        return {
+          bg: 'rgba(244, 63, 94, 0.1)',
+          color: 'var(--negative)',
+        }
+      default:
+        return {
+          bg: 'rgba(100, 116, 139, 0.1)',
+          color: 'var(--neutral)',
+        }
+    }
+  }
+
+  const sentimentStyle = getSentimentStyle(review.label)
 
   return (
     <div style={styles.card}>
@@ -13,8 +27,8 @@ export default function ReviewCard({ review }) {
         <span
           style={{
             ...styles.badge,
-            backgroundColor: colorScheme.bg,
-            color: colorScheme.text,
+            backgroundColor: sentimentStyle.bg,
+            color: sentimentStyle.color,
           }}
         >
           {review.label.charAt(0).toUpperCase() + review.label.slice(1)}
@@ -30,33 +44,36 @@ export default function ReviewCard({ review }) {
 
 const styles = {
   card: {
-    padding: '16px',
-    backgroundColor: 'white',
-    borderRadius: '8px',
-    boxShadow: '0 1px 4px rgba(0,0,0,0.1)',
+    padding: '20px',
+    backgroundColor: 'var(--surface-container-low)',
+    borderRadius: '12px',
     marginBottom: '12px',
+    border: '1px solid rgba(60, 73, 71, 0.05)',
   },
   header: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: '8px',
+    marginBottom: '12px',
   },
   badge: {
-    padding: '4px 12px',
-    borderRadius: '12px',
+    padding: '6px 14px',
+    borderRadius: '9999px',
     fontSize: '12px',
-    fontWeight: '600',
+    fontFamily: 'var(--font-label)',
+    fontWeight: '500',
     textTransform: 'capitalize',
   },
   confidence: {
     fontSize: '12px',
-    color: '#6b7280',
+    fontFamily: 'var(--font-label)',
+    color: 'var(--on-surface-variant)',
   },
   text: {
     margin: 0,
     fontSize: '14px',
-    lineHeight: '1.5',
-    color: '#374151',
+    fontFamily: 'var(--font-body)',
+    lineHeight: '1.6',
+    color: 'var(--on-surface-variant)',
   },
 }

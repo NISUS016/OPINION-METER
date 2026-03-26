@@ -1,9 +1,9 @@
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
 const COLORS = {
-  positive: '#22c55e',
-  neutral: '#eab308',
-  negative: '#ef4444',
+  positive: '#10B981',
+  neutral: '#64748B',
+  negative: '#F43F5E',
 }
 
 export default function ResultsChart({ summary }) {
@@ -42,13 +42,26 @@ export default function ResultsChart({ summary }) {
             cy="50%"
             outerRadius={100}
             label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+            labelLine={false}
           >
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.fill} />
             ))}
           </Pie>
-          <Tooltip />
-          <Legend />
+          <Tooltip 
+            contentStyle={{
+              backgroundColor: 'var(--surface-container)',
+              border: '1px solid var(--outline-variant)',
+              borderRadius: '8px',
+              fontFamily: 'var(--font-body)',
+            }}
+          />
+          <Legend 
+            wrapperStyle={{
+              fontFamily: 'var(--font-label)',
+              color: 'var(--on-surface-variant)',
+            }}
+          />
         </PieChart>
       </ResponsiveContainer>
       <div style={styles.stats}>
@@ -68,30 +81,32 @@ export default function ResultsChart({ summary }) {
 
 const styles = {
   container: {
-    padding: '20px',
-    backgroundColor: 'white',
+    padding: '24px',
+    backgroundColor: 'var(--surface-container-low)',
     borderRadius: '12px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+    border: '1px solid rgba(60, 73, 71, 0.05)',
   },
   badge: {
     textAlign: 'center',
     marginBottom: '20px',
   },
   badgeText: {
-    padding: '8px 16px',
-    borderRadius: '20px',
+    padding: '10px 20px',
+    borderRadius: '9999px',
     color: 'white',
-    fontWeight: 'bold',
-    fontSize: '18px',
+    fontWeight: '700',
+    fontSize: '16px',
+    fontFamily: 'var(--font-label)',
   },
   stats: {
     display: 'flex',
     justifyContent: 'center',
-    gap: '30px',
+    gap: '32px',
     marginTop: '20px',
   },
   statItem: {
-    fontSize: '16px',
+    fontSize: '14px',
+    fontFamily: 'var(--font-label)',
     fontWeight: '500',
   },
 }
