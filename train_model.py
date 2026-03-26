@@ -14,7 +14,7 @@ except ImportError:
 
 from backend.preprocess import preprocess_batch
 
-DATASET_PATH = os.path.join("dataset", "fine-foods", "Reviews.csv")
+DATASET_PATH = os.path.join("dataset", "archive", "Reviews.csv")
 OUTPUT_DIR = os.path.join("backend", "models")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -22,8 +22,8 @@ print("Loading dataset...")
 df = pd.read_csv(DATASET_PATH)
 print(f"Total rows: {len(df)}")
 
-print("Sampling 200k rows...")
-df = df.sample(n=200000, random_state=42).reset_index(drop=True)
+print("Sampling 300k rows...")
+df = df.sample(n=300000, random_state=42).reset_index(drop=True)
 
 print("Mapping scores to sentiment labels...")
 
@@ -79,7 +79,9 @@ else:
         pickle.dump(vectorizer, f)
     with open(label_encoder_path, "wb") as f:
         pickle.dump(label_encoder, f)
-    print("Warning: Using pickle. Install joblib for better security: pip install joblib")
+    print(
+        "Warning: Using pickle. Install joblib for better security: pip install joblib"
+    )
 
 # Compute and print SHA256 hashes for verification
 print("\nModel file hashes (for verify_file_integrity in predict.py):")

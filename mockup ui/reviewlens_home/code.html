@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ReviewLens - Know what buyers actually think</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-fixed-variant": "#92002a",
+                        "inverse-on-surface": "#2b303c",
+                        "inverse-primary": "#006b5f",
+                        "surface-bright": "#343946",
+                        "on-secondary-fixed": "#131b2c",
+                        "surface": "#0e131e",
+                        "surface-variant": "#303541",
+                        "on-secondary-fixed-variant": "#3f4759",
+                        "on-primary-container": "#00423b",
+                        "on-primary-fixed-variant": "#005048",
+                        "secondary-fixed": "#dbe2f9",
+                        "on-secondary-container": "#adb5ca",
+                        "tertiary-fixed": "#ffdadb",
+                        "secondary-fixed-dim": "#bfc6dc",
+                        "on-tertiary-container": "#7a0022",
+                        "on-background": "#dee2f2",
+                        "tertiary-fixed-dim": "#ffb2b7",
+                        "on-primary-fixed": "#00201c",
+                        "primary": "#4fdbc8",
+                        "primary-fixed-dim": "#4fdbc8",
+                        "surface-dim": "#0e131e",
+                        "outline-variant": "#3c4947",
+                        "surface-container-high": "#252a36",
+                        "inverse-surface": "#dee2f2",
+                        "tertiary": "#ffb2b7",
+                        "surface-container-lowest": "#090e19",
+                        "on-surface-variant": "#bbcac6",
+                        "on-tertiary": "#67001b",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-container": "#ff7b88",
+                        "on-surface": "#dee2f2",
+                        "surface-container-low": "#171b27",
+                        "surface-tint": "#4fdbc8",
+                        "surface-container-highest": "#303541",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "background": "#0e131e",
+                        "on-primary": "#003731",
+                        "outline": "#859490",
+                        "primary-container": "#14b8a6",
+                        "surface-container": "#1b1f2b",
+                        "secondary-container": "#3f4759",
+                        "on-secondary": "#283041",
+                        "secondary": "#bfc6dc",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#71f8e4",
+                        "on-tertiary-fixed": "#40000d"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .atmospheric-glow {
+            background: radial-gradient(circle at center, rgba(20, 184, 166, 0.15) 0%, rgba(9, 14, 25, 0) 70%);
+        }
+    </style>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&amp;display=swap" rel="stylesheet"/></head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30 min-h-screen overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<nav class="bg-[#0E131E]/80 backdrop-blur-xl docked full-width top-0 z-50 flex justify-between items-center w-full px-6 py-4 mx-auto fixed shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.05)_inset]">
+<div class="flex items-baseline space-x-3">
+<span class="text-xl font-bold tracking-tight text-[#4FDBC8] font-headline">ReviewLens</span>
+<span class="text-[13px] text-[#8B9AAD] font-label font-medium opacity-80">Know what buyers actually think</span>
+</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-[#4FDBC8] border-b-2 border-[#4FDBC8] pb-1 font-label text-sm font-medium tracking-wide" href="#">Dashboard</a>
+<a class="text-[#BBCAC6] hover:text-[#DEE2F2] transition-colors font-label text-sm font-medium tracking-wide" href="#">History</a>
+<a class="text-[#BBCAC6] hover:text-[#DEE2F2] transition-colors font-label text-sm font-medium tracking-wide" href="#">Settings</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="p-2 hover:bg-[#252A36] rounded-lg transition-all text-[#BBCAC6]">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 hover:bg-[#252A36] rounded-lg transition-all text-[#BBCAC6]">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="Close-up of a professional male user avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWENOuRKbDLucwzHAeUMHeNSDjWbFd33aucpc7Kuv-aN-cWEHNHoHIP9p5QeGazXebzmGQalDV9OIASB-bFIEs30xJ0VX98c8-hDXhNbqc_crvFfmSix9dGfZPm3gn8beMb7ZWoi0GtE27xhHqh_k9xyHjMpsRDFnRpN3VXYQrILlxzxLftx0LGoZ6nphK4NFcdf2wywnWSAVyZZuRUXjiG-W552x8LAUGrcUbpRhp4VyEJ0AkB41f2Jev35gDUvxgYWNNOJjCHBY"/>
+</div>
+</div>
+</nav>
+<!-- Hero Content -->
+<main class="relative flex flex-col items-center justify-center min-h-screen px-6">
+<!-- Volumetric Background Glow -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] atmospheric-glow pointer-events-none z-0"></div>
+<!-- Search Section -->
+<div class="relative z-10 w-full flex flex-col items-center">
+<!-- Branding Header (As specified for the hero) -->
+<div class="mb-12 text-center">
+<h1 class="font-extrabold text-4xl md:text-5xl text-on-surface mb-4 italic" style="font-family: 'Playfair Display', serif;">
+                    The Pulse of <span class="text-primary">Every Review.</span>
+</h1>
+<p class="text-on-surface-variant max-w-lg mx-auto text-lg">
+                    Aggregate sentiment, extract keywords, and unlock product insights with AI-driven analysis.
+                </p>
+</div>
+<!-- Main Search Input Shell -->
+<div class="relative w-full max-w-[640px] group">
+<div class="absolute inset-y-0 left-6 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline-variant group-focus-within:text-primary transition-colors" data-icon="search">search</span>
+</div>
+<input class="w-full h-16 pl-16 pr-32 bg-[#131B2B] border border-[#232E42] rounded-full text-white placeholder:text-[#BBCAC6]/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-body text-base shadow-2xl" placeholder="Search a product or paste a URL to analyze reviews..." type="text"/>
+<button class="absolute right-2 top-2 bottom-2 px-8 bg-primary-container hover:bg-primary transition-all text-on-primary-container font-headline font-bold rounded-full text-sm tracking-wide active:scale-95 duration-150">
+                    Analyze
+                </button>
+</div>
+<!-- Quick Access Chips -->
+<div class="mt-8 flex flex-wrap justify-center gap-3">
+<span class="text-xs font-label uppercase tracking-widest text-on-surface-variant/60 mr-2 self-center">Trending:</span>
+<button class="px-4 py-1.5 bg-surface-container-low hover:bg-surface-container-high transition-colors rounded-full text-xs font-medium text-on-surface-variant border border-outline-variant/10">Amazon Echo 5</button>
+<button class="px-4 py-1.5 bg-surface-container-low hover:bg-surface-container-high transition-colors rounded-full text-xs font-medium text-on-surface-variant border border-outline-variant/10">Steam Deck OLED</button>
+<button class="px-4 py-1.5 bg-surface-container-low hover:bg-surface-container-high transition-colors rounded-full text-xs font-medium text-on-surface-variant border border-outline-variant/10">Sony WH-1000XM5</button>
+</div>
+</div>
+<!-- Metric Teaser Grid (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-24 w-full max-w-5xl">
+<div class="bg-surface-container-low p-8 rounded-xl border border-outline-variant/5 hover:border-primary/20 transition-all group">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-6 text-primary">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+</div>
+<h3 class="font-headline font-bold text-lg mb-2 text-on-surface">Sentiment Mapping</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                    Instantly visualize the emotional arc of thousands of user reviews in seconds.
+                </p>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl border border-outline-variant/5 hover:border-primary/20 transition-all group">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-6 text-primary">
+<span class="material-symbols-outlined" data-icon="segment">segment</span>
+</div>
+<h3 class="font-headline font-bold text-lg mb-2 text-on-surface">Key Feature Extraction</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                    AI identifies exactly which features users love and where the product fails.
+                </p>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl border border-outline-variant/5 hover:border-primary/20 transition-all group">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-6 text-primary">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<h3 class="font-headline font-bold text-lg mb-2 text-on-surface">AI Summary</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                    Get a concise, bulleted report of the "Buyer's Consensus" without reading a single word.
+                </p>
+</div>
+</div>
+</main>
+<!-- Footer Meta -->
+<footer class="w-full py-12 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center px-12 gap-6 bg-surface-container-lowest">
+<div class="flex items-center space-x-6">
+<span class="text-sm font-label text-on-surface-variant">© 2024 ReviewLens AI</span>
+<div class="h-4 w-px bg-outline-variant/20 hidden md:block"></div>
+<a class="text-sm font-label text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="text-sm font-label text-on-surface-variant hover:text-primary transition-colors" href="#">Terms</a>
+</div>
+<div class="flex items-center space-x-6">
+<span class="text-xs font-label uppercase tracking-[0.2em] text-[#ADB5CA]">Powered by GPT-4o Engine</span>
+</div>
+</footer>
+<!-- Floating Action for Help (Contextual) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+</button>
+</body></html>
