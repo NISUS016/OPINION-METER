@@ -1,10 +1,27 @@
-dataset/
-backend/models/
-backend/__pycache__/
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
 *.pkl
-*.csv
+*.pyc
+
+# Env
 .env
+.env.local
+
+# Node
 node_modules/
 dist/
-__pycache__/
-*.pyc
+
+# Dataset (except deploy.csv for production)
+dataset/
+!dataset/deploy.csv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db

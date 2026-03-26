@@ -18,7 +18,7 @@ export default function SearchBar({ onSearch, isLoading = false }) {
 
     const fetchSuggestions = async () => {
       try {
-        const res = await fetch(`${API_URL}/suggest?q=${encodeURIComponent(query)}&limit=8`)
+        const res = await fetch(`${API_URL}/suggest?q=${encodeURIComponent(query)}&limit=8&min_reviews=50`)
         const data = await res.json()
         setSuggestions(data.suggestions || [])
         setShowSuggestions(true)

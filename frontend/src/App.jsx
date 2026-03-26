@@ -13,7 +13,7 @@ export default function App() {
   const [sampleProducts, setSampleProducts] = useState([])
 
   useEffect(() => {
-    fetch(`${API_URL}/products?limit=10`)
+    fetch(`${API_URL}/products?limit=10&min_reviews=50`)
       .then(res => res.json())
       .then(data => setSampleProducts(data.products || []))
       .catch(() => {})
@@ -138,7 +138,8 @@ export default function App() {
                 style={styles.backButton}
                 onClick={() => setResults(null)}
               >
-                ← Back to Search
+                <span style={styles.backIcon}>←</span>
+                Back to Search
               </button>
               <h2 style={styles.resultsTitle}>Results for "{results.productSummary}"</h2>
             </div>
@@ -356,14 +357,22 @@ const styles = {
     marginBottom: '24px',
   },
   backButton: {
-    background: 'none',
-    border: 'none',
-    color: 'var(--primary)',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    backgroundColor: 'var(--surface-container-low)',
+    border: '1px solid var(--outline-variant)',
+    color: 'var(--on-surface-variant)',
     fontSize: '14px',
     fontFamily: 'var(--font-label)',
     cursor: 'pointer',
-    marginBottom: '12px',
-    padding: 0,
+    marginBottom: '16px',
+    padding: '10px 16px',
+    borderRadius: '8px',
+    transition: 'all 0.2s ease',
+  },
+  backIcon: {
+    fontSize: '16px',
   },
   resultsTitle: {
     fontSize: '24px',

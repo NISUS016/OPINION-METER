@@ -22,7 +22,7 @@ app.add_middleware(
 )
 
 DATASET_PATH = os.path.join(
-    os.path.dirname(os.path.dirname(__file__)), "dataset", "archive", "Reviews.csv"
+    os.path.dirname(os.path.dirname(__file__)), "dataset", "deploy.csv"
 )
 
 # Cache for dataset to avoid reloading on every request
@@ -77,6 +77,7 @@ def health():
 def search(
     q: str = Query(..., min_length=1, max_length=100, description="Search keyword"),
     limit: int = Query(20, ge=1, le=100, description="Maximum number of results"),
+    min_reviews: int = Query(10, ge=1, le=1000, description="Minimum review count"),
 ):
     """Search products by name/summary."""
     q = q.strip()
@@ -89,6 +90,9 @@ def search(
         raise HTTPException(
             status_code=500, detail=f"Failed to load products: {str(e)}"
         )
+
+    # Filter by minimum reviews
+    products = products[products["review_count"] >= min_reviews]
 
     escaped_q = str(q).replace("\\", "\\\\").replace(".", "\\.").replace("+", "\\+")
     results = products[
@@ -113,6 +117,7 @@ def search(
 @app.get("/products")
 def get_sample_products(
     limit: int = Query(10, ge=1, le=50, description="Number of sample products"),
+    min_reviews: int = Query(50, ge=1, le=1000, description="Minimum review count"),
 ):
     """Get sample/recommended products."""
     try:
@@ -124,6 +129,8 @@ def get_sample_products(
             status_code=500, detail=f"Failed to load products: {str(e)}"
         )
 
+    # Filter by minimum reviews for quality
+    products = products[products["review_count"] >= min_reviews]
     results = products.nlargest(limit, "review_count")
 
     return {
@@ -143,6 +150,7 @@ def get_sample_products(
 def get_suggestions(
     q: str = Query(..., min_length=1, max_length=100, description="Search prefix"),
     limit: int = Query(10, ge=1, le=20, description="Maximum suggestions"),
+    min_reviews: int = Query(50, ge=1, le=1000, description="Minimum review count"),
 ):
     """Get search suggestions based on prefix."""
     q = q.strip()
@@ -155,6 +163,9 @@ def get_suggestions(
         raise HTTPException(
             status_code=500, detail=f"Failed to load products: {str(e)}"
         )
+
+    # Filter by minimum reviews for quality
+    products = products[products["review_count"] >= min_reviews]
 
     # Search in product summary - case insensitive prefix match
     pattern = f"^{q}" if q else ""

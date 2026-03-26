@@ -1,0 +1,13 @@
+# Render deployment configuration
+# Go to https://dashboard.render.com/blueprints
+
+services:
+  - type: web
+    name: opinion-meter-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+    plan: free
